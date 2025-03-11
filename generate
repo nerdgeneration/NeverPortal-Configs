@@ -1,0 +1,30 @@
+#!/bin/bash
+
+[[ "$1" == "" ]] && {
+    echo "Syntax: generate <folder>"
+    exit 1
+}
+project="$1"
+
+[[ ! -d "$project" ]] && {
+    echo "Folder $1 does not exist"
+    exit 1
+}
+
+[[ ! -f "$project/config" || ! -f "$1/template" ]] && {
+    echo "Folder $1 has no config"
+    exit 1
+}
+
+cd "$project" || {
+    echo "Could not change to project folder"
+    exit 1
+}
+
+source "config"
+cp template "../$project.bat"
+for file in *; do
+    [[ "$file" == "config" || "$file" == "template" ]] && continue
+    echo "curl $source$file -o $destination$file" >>"../$project.bat"
+done
+unix2dos -q "../$project.bat"

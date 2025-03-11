@@ -1,0 +1,2 @@
+source='https://raw.githubusercontent.com/nerdgeneration/NeverPortal-Configs/main/valheim-easy/'
+destination='%appdata%\r2modmanPlus-local\Valheim\profiles\Default\BepInEx\config\'
