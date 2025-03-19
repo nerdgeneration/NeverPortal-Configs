@@ -1,9 +1,6 @@
 name: Update Valheim-Easy server
 
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 jobs:
   deploy:
@@ -22,4 +19,4 @@ jobs:
 
       - name: Run update script on server
         run: |
-          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "/srv/games/valheim-easy/update"
+          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "/srv/games/NeverPortal-Configs/update"
