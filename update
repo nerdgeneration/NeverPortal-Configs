@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Update the .bat files and push them
+cd "$(dirname "$0")"
+git pull
+./generate
+git add *.bat
+git commit -m "Updated scripts"
+git push origin main
+
+# Run game specific update/restart
+for project in *; do
+  [[ ! -d "$project" || ! -f "$project/config" || ! -f "$project/update" ]] && continue
+  ( "$project/update" )
+done
