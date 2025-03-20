@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# Update the .bat files and push them
 cd "$(dirname "$0")"
+
+# Since this will run unattended, we should log everything
+exec > >(awk '{print strftime("[%Y-%m-%d %H:%M:%S]"), $0}' | tee -a update.log) 2>&1
+
+# Update the .bat files and push them
 git pull
 ./generate
 git add *.bat
