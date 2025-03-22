@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cp *.cfg ../valheim-easy/config/bepinex/
-cp *.dll ../valheim-easy/config/bepinex/plugins
-cd ../valheim-easy
+cd valheim-easy
+cp *.cfg ../../valheim-easy/config/bepinex/
+cp *.dll ../../valheim-easy/config/bepinex/plugins
+cd ../../valheim-easy
 ./restart
