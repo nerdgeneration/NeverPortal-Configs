@@ -13,10 +13,10 @@ jobs:
       - name: Setup SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          install -m 0600 <(echo "${{ secrets.SSH_PRIVATE_KEY }}") ~/.ssh/id_ed25519
+          install -m 0600 <(echo -e "Host *\n    StrictHostKeyChecking no\n    UserKnownHostsFile=/dev/null") ~/.ssh/config
           ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Run update script on server
         run: |
-          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "/srv/games/NeverPortal-Configs/update"
+          ssh -o HostKeyAlgorithms=+ssh-ed25519 -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "/srv/games/NeverPortal-Configs/update"
