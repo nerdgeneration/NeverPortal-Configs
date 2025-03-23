@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo chown -R game-servers:games /srv/games

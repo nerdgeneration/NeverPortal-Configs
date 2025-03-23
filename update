@@ -6,13 +6,14 @@ cd "$(dirname "$0")"
 exec > >(awk '{print strftime("[%Y-%m-%d %H:%M:%S]"), $0}' | tee -a update.log) 2>&1
 
 # Update the .bat files and push them
-git pull
+git pull --rebase
 ./generate
 git add *.bat
 git commit -m "Updated scripts"
 git push origin main
 
 # Run game specific update/restart
+./reset-permissions
 for project in *; do
   [[ ! -d "$project" || ! -f "$project/config" || ! -f "$project/update" ]] && continue
   ( "$project/update" )
